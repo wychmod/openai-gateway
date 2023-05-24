@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="openai-gateway" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="imageTag" value="swr.cn-north-4.myhuaweicloud.com/weizhanjun/openai-gateway:v2" />
+        <option name="buildCliOptions" value="--platform linux/amd64" />
+        <option name="buildKitEnabled" value="true" />
+        <option name="buildOnly" value="true" />
+        <option name="contextFolderPath" value="source" />
+        <option name="sourceFilePath" value="source/services/auth/Dockerfile" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>
