@@ -1,12 +1,37 @@
-# openai-gateway配置相关信息
-> 该项目为openai的网关，实现了对接飞书聊天机器人的oauth身份验证、多api_key配置筛选、openai转发、问答存储等功能。分为三个部分，网关、openai调用部分和mq消费者部分。
+<div align="center">
+
+![img.png](img/logo.png)
+# openai-gateway
+
+**openai-gateway chatGPT网关服务，支持对接飞书聊天机器人的oauth身份验证、多api_key配置筛选、openai转发、问答存储等功能。**
+
+</div>
+
+<div align="center">
+
+![Static Badge](https://img.shields.io/badge/license-Apache-blue)  ![Static Badge](https://img.shields.io/badge/python-3.8|3.9|3.10|3.11-blue) ![Static Badge](https://img.shields.io/badge/pypi-v0.7.1-yellow) 
+![GitHub Repo stars](https://img.shields.io/github/stars/wychmod/openai-gateway?style=social) ![Static Badge](https://img.shields.io/badge/QQ-545480453-green)
+
+
+</div>
+
+## 简介
+该项目为openai的网关，实现了对接飞书聊天机器人的oauth身份验证、多api_key配置筛选、openai转发、问答存储等功能。分为三个部分，网关、openai调用部分和mq消费者部分。
+
+## openai-gateway相关信息
+该项目分为三个微服务部分，可以根据目录下的Dockerfile进行构建镜像，进行部署。
 - auth：网关部分 
 - openai：openai调用
-- message：mq消费部分
+- message：mq消费部分，存储问答信息部分。
+
+## 存储信息实现部分
+### chat_completes的conversation实现方式
+通过对比第一个不是system的语句来判断是否是同一个conversation，如果是就把上一条的chat_completes的message_id放到当前的chat_completes的parent里面，如果不是就新建一个conversation。
+
+![chat](img/chat.png)
 
 ## openai-gateway配置信息
-### 镜像名称
-swr.cn-north-4.myhuaweicloud.com/weizhanjun/openai-gateway:v1
+
 ### 配置信息：
 - openai配置信息 
   - OPENAI_API_KEY: 配置openai的apikey数组，用逗号分开
@@ -123,9 +148,3 @@ OPENAI_PROXY: openai 代理 可以不填
     - main: rocketmq消息消费者类
     - Dockerfile: docker镜像文件打包当前微服务
 - Dockerfile: docker镜像文件(打包基础类python第三方包，rocketmq的linux工具包)
-
-## 项目实现
-### chat_completes的conversation实现方式
-通过对比第一个不是system的语句来判断是否是同一个conversation，如果是就把上一条的chat_completes的message_id放到当前的chat_completes的parent里面，如果不是就新建一个conversation。
-
-![chat](img/chat.png)
